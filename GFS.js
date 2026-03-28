@@ -94,10 +94,10 @@ getJSON('https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_coastl
 });
 
 function updateWind(name) {
-    getJSON('wind/' + windFiles[name] + '.json', function (windData) {
+    getJSON('./wind/' + windFiles[name] + '.json', function (windData) {
         const windImage = new Image();
         windData.image = windImage;
-        windImage.src = 'wind/' + windFiles[name] + '.png';
+        windImage.src = './wind/' + windFiles[name] + '.png';
         windImage.onload = function () {
             wind.setWind(windData);
         };
