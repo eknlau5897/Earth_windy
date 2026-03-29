@@ -50,13 +50,13 @@ const windFiles = {
 };
 
 const meta = {
-    '2026-3-20+18Z': 0,
+    '2026-3-29+00Z': 0,
     'retina resolution': true,
     'github.com/mapbox/webgl-wind': function () {
         window.location = 'https://github.com/mapbox/webgl-wind';
     }
 };
-gui.add(meta, '2026-3-20+18Z', 0, 120, 6).onFinishChange(updateWind);
+gui.add(meta, '2026-3-29+00Z', 0, 120, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
