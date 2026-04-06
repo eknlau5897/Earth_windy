@@ -35,7 +35,7 @@ const windFiles = {
 const meta = {
     '2026-4-5+12Z': 0,
     'retina resolution': true,
-    'GFS_100m wind': function () {
+    'change to GFS_100m wind': function () {
         window.location = 'https://eknlau5897.github.io/Earth_windy/index.html';
     }
 };
@@ -43,7 +43,7 @@ gui.add(meta, '2026-4-5+12Z', 0, 24, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
-gui.add(meta, 'GFS_100m wind');
+gui.add(meta, 'change to GFS_100m wind');
 updateWind(0);
 updateRetina();
 
