@@ -52,15 +52,15 @@ const windFiles = {
 const meta = {
     '2026-4-3+06Z': 0,
     'retina resolution': true,
-    'github.com/mapbox/webgl-wind': function () {
-        window.location = 'https://github.com/mapbox/webgl-wind';
+    'change to ec 10m wind': function () {
+        window.location = 'http://eknlau5897.github.io/Earth_windy/EC_10m.html';
     }
 };
 gui.add(meta, '2026-4-3+06Z', 0, 120, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
-gui.add(meta, 'github.com/mapbox/webgl-wind');
+gui.add(meta, 'change to ec 10m wind');
 updateWind(0);
 updateRetina();
 
