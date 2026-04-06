@@ -39,7 +39,7 @@ const meta = {
         window.location = 'https://eknlau5897.github.io/Earth_windy/index.html';
     }
 };
-gui.add(meta, '2026-4-3+06Z', 0, 120, 6).onFinishChange(updateWind);
+gui.add(meta, '2026-4-5+12Z', 0, 24, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
