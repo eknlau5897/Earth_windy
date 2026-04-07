@@ -42,7 +42,7 @@ const windFiles = {
 
 const meta = {
     'zoom': 2,
-    '2026-04-06+h': 0,
+    '2026-04-06+12Z': 0,
     'retina resolution': true,
     'github.com/mapbox/webgl-wind': function () {
         window.location = 'https://github.com/mapbox/webgl-wind';
@@ -50,7 +50,7 @@ const meta = {
 };
 
 gui.add(meta, 'zoom', 2, 10, 0.01).onChange(updateZoom);
-gui.add(meta, '2026-04-06+h', 0, 48, 24).onFinishChange(updateWind);
+gui.add(meta, '2026-04-06+12Z', 0, 48, 24).onFinishChange(updateWind);
 
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);

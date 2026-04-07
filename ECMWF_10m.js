@@ -43,7 +43,7 @@ const windFiles = {
 
 const meta = {
     'zoom': 2,
-    '2026-04-06+h': 0,
+    '2026-04-05+12Z': 0,
     'retina resolution': true,
     'change to GFS 100m wind': function () {
         window.location = 'http://eknlau5897.github.io/Earth_windy/index.html';
