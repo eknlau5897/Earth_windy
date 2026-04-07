@@ -118,9 +118,9 @@ function drawCoastline() {
 }
 
 function updateWind(name) {
-    getJSON('wind/' + windFiles[name] + '.json', function (windData) {
+    getJSON('ec_10m_wind/' + windFiles[name] + '.json', function (windData) {
         const windImage = new Image();
-        windImage.src = 'wind/' + windFiles[name] + '.png';
+        windImage.src = 'ec_10m_wind/' + windFiles[name] + '.png';
         windImage.onload = function () {
             // Must define the geographic bounds of the wind image
             wind.bbox = windData.bbox || [113.8, 22.1, 114.5, 22.6]; 
