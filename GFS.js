@@ -44,8 +44,8 @@ const meta = {
     'zoom': 2,
     '2026-04-06+12Z': 0,
     'retina resolution': true,
-    'github.com/mapbox/webgl-wind': function () {
-        window.location = 'https://github.com/mapbox/webgl-wind';
+    'change to EC 10m wind': function () {
+        window.location = 'http://eknlau5897.github.io/Earth_windy/EC_10m.html';
     }
 };
 
@@ -56,7 +56,7 @@ if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
 
-gui.add(meta, 'github.com/mapbox/webgl-wind');
+gui.add(meta, 'change to EC 10m wind');
 
 updateWind(0);
 updateRetina();

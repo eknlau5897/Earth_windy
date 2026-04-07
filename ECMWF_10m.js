@@ -57,7 +57,7 @@ if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
 
-gui.add(meta, 'http://eknlau5897.github.io/Earth_windy/index.html');
+gui.add(meta, 'change to GFS 100m wind');
 
 updateWind(0);
 updateRetina();
