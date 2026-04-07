@@ -1,20 +1,32 @@
 precision mediump float;
 
-uniform sampler2D u_wind;
-uniform vec2 u_wind_min;
-uniform vec2 u_wind_max;
-uniform sampler2D u_color_ramp;
+attribute float a_index;
+
+uniform sampler2D u_particles;
+uniform float u_particles_res;
+
+uniform mat4 u_matrix;
+uniform vec4 u_bbox;
 
 varying vec2 v_particle_pos;
 
 void main() {
-    vec2 velocity = mix(u_wind_min, u_wind_max, texture2D(u_wind, v_particle_pos).rg);
-    float speed_t = length(velocity) / length(u_wind_max);
+    vec4 color = texture2D(u_particles, vec2(
+        fract(a_index / u_particles_res),
+        floor(a_index / u_particles_res) / u_particles_res));
 
-    // color ramp is encoded in a 16x16 texture
-    vec2 ramp_pos = vec2(
-        fract(16.0 * speed_t),
-        floor(16.0 * speed_t) / 16.0);
+    // decode current particle position from the pixel's RGBA value
+    vec2 pos = vec2(
+        color.r / 255.0 + color.b,
+        color.g / 255.0 + color.a);
 
-    gl_FragColor = texture2D(u_color_ramp, ramp_pos);
+    // convert to global geographic position
+    v_particle_pos = u_bbox.xy + pos * (u_bbox.zw - u_bbox.xy);
+
+    // project the position with mercator projection
+    float s = sin(radians(v_particle_pos.y * 180.0 - 90.0));
+    float y = 1.0 - (degrees(log((1.0 + s) / (1.0 - s))) / 360.0 + 1.0) / 2.0;
+
+    gl_PointSize = 1.0;
+    gl_Position = u_matrix * vec4(v_particle_pos.x, y, 0, 1);
 }
