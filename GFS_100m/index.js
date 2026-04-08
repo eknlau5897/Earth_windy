@@ -52,13 +52,18 @@ const windFiles = {
 const meta = {
     '2026-04-07+18Z': 0,
     'retina resolution': true,
-    'GFS 100m wind':'you are viewing GFS 100m wind'
+    'GFS 100m wind':'you are viewing GFS 100m wind',
+    'change to EC 10m wind': function () {
+        window.location = 'http://eknlau5897.github.io/Earth_windy/ec_10m_wind/EC_10m.html';
+    }
+
 };
 gui.add(meta, '2026-04-07+18Z', 0, 120, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
 gui.add(meta, 'GFS 100m wind');
+gui.add(meta, 'change to EC 10m wind');
 updateWind(0);
 updateRetina();
 
