@@ -52,13 +52,13 @@ const windFiles = {
 const meta = {
     '2026-04-07+18Z': 0,
     'retina resolution': true,
-    'you are viewing GFS 100m wind'
+    'GFS 100m wind':'you are viewing GFS 100m wind'
 };
 gui.add(meta, '2026-04-07+18Z', 0, 120, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
-gui.add(meta, 'you are viewing GFS 100m wind');
+gui.add(meta, 'GFS 100m wind');
 updateWind(0);
 updateRetina();
 
