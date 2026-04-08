@@ -36,7 +36,7 @@ const windFiles = {
 const meta = {
     '2026-04-05+12Z': 0,
     'retina resolution': true,
-    'ecmwf 10m wind':'you are viewing ecmwf 10m wind'
+    'ecmwf 10m wind':'you are viewing ecmwf 10m wind',
     'change to GFS_100m_wind': function () {
         window.location = 'http://eknlau5897.github.io/Earth_windy/GFS_100m/index.html';
     }
