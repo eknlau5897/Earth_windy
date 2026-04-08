@@ -52,15 +52,13 @@ const windFiles = {
 const meta = {
     '2026-04-07+18Z': 0,
     'retina resolution': true,
-    'github.com/mapbox/webgl-wind': function () {
-        window.location = 'https://github.com/mapbox/webgl-wind';
-    }
+    'you are viewing GFS 100m wind'
 };
 gui.add(meta, '2026-04-07+18Z', 0, 120, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
-gui.add(meta, 'github.com/mapbox/webgl-wind');
+gui.add(meta, 'you are viewing GFS 100m wind');
 updateWind(0);
 updateRetina();
 
@@ -94,7 +92,7 @@ getJSON('https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_coastl
 });
 
 function updateWind(name) {
-    getJSON('wind/' + windFiles[name] + '.json', function (windData) {
+    getJSON('./wind/' + windFiles[name] + '.json', function (windData) {
         const windImage = new Image();
         windData.image = windImage;
         windImage.src = 'wind/' + windFiles[name] + '.png';
