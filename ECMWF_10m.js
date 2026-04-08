@@ -1,3 +1,4 @@
+// using var to work around a WebKit bug
 var canvas = document.getElementById('canvas'); // eslint-disable-line
 
 const pxRatio = Math.max(Math.floor(window.devicePixelRatio) || 1, 2);
@@ -46,7 +47,6 @@ if (pxRatio !== 1) {
 }
 gui.add(meta, 'ecmwf 10m wind');
 gui.add(meta, 'change to GFS 100m wind');
-
 updateWind(0);
 updateRetina();
 
