@@ -3,7 +3,7 @@ GFS_TIME="18"
 RES="0p25"
 BBOX="leftlon=0&rightlon=360&toplat=90&bottomlat=-90"
 LEVEL="lev_100_m_above_ground=on"
-DIR="/Users/eknlau/Earth_windy"
+DIR="/Users/eknlau/VS code/Earth_windy"
 
 # 1. Start the loop (0 to 120 in steps of 6)
 for i in $(seq 0 6 120)
