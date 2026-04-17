@@ -52,9 +52,9 @@ const windFiles = {
 const meta = {
     '2026-04-16+12Z': 0,
     'retina resolution': true,
-    'GFS 100m wind':'you are viewing GFS 100m wind',
-    'change to EC 10m wind': function () {
-        window.location = 'http://eknlau5897.github.io/Earth_windy/ec_10m_wind/EC_10m.html';
+    'EC 10m wind':'you are viewing EC 10m wind',
+    'change to GFS 100m wind': function () {
+        window.location = 'http://eknlau5897.github.io/Earth_windy/GFS_100m/index.html';
     }
 
 };
@@ -62,8 +62,8 @@ gui.add(meta, '2026-04-16+12Z', 0, 120, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
-gui.add(meta, 'GFS 100m wind');
-gui.add(meta, 'change to EC 10m wind');
+gui.add(meta, 'EC 10m wind');
+gui.add(meta, 'change to GFS 100m wind');
 updateWind(0);
 updateRetina();
 
