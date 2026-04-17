@@ -26,35 +26,35 @@ gui.add(wind, 'dropRate', 0, 0.1);
 gui.add(wind, 'dropRateBump', 0, 0.2);
 
 const windFiles = {
-    0: '2026_0416_12_000',
-    6: '2026_0416_12_006',
-    12: '2026_0416_12_012',
-    18: '2026_0416_12_018',
-    24: '2026_0416_12_024',
-    30: '2026_0416_12_030',
-    36: '2026_0416_12_036',
-    42: '2026_0416_12_042',
-    48: '2026_0416_12_048',
-    54: '2026_0416_12_054',
-    60: '2026_0416_12_060',
-    66: '2026_0416_12_066',
-    72: '2026_0416_12_072',
-    78: '2026_0416_12_078',
-    84: '2026_0416_12_084',
-    90: '2026_0416_12_090',
-    96: '2026_0416_12_096',
-    102: '2026_0416_12_102',
-    108: '2026_0416_12_108',
-    114: '2026_0416_12_114',
-    120: '2026_0416_12_120'
+    0: '2026_04_1612_000',
+    6: '2026_04_1612_006',
+    12: '2026_04_1612_012',
+    18: '2026_04_1612_018',
+    24: '2026_04_1612_024',
+    30: '2026_04_1612_030',
+    36: '2026_04_1612_036',
+    42: '2026_04_1612_042',
+    48: '2026_04_1612_048',
+    54: '2026_04_1612_054',
+    60: '2026_04_1612_060',
+    66: '2026_04_1612_066',
+    72: '2026_04_1612_072',
+    78: '2026_04_1612_078',
+    84: '2026_04_1612_084',
+    90: '2026_04_1612_090',
+    96: '2026_04_1612_096',
+    102: '2026_04_1612_102',
+    108: '2026_04_1612_108',
+    114: '2026_04_1612_114',
+    120: '2026_04_1612_120'
 };
 
 const meta = {
     '2026-04-16+12Z': 0,
     'retina resolution': true,
-    'GFS 100m wind':'you are viewing GFS 100m wind',
-    'change to EC 10m wind': function () {
-        window.location = 'http://eknlau5897.github.io/Earth_windy/ec_10m_wind/EC_10m.html';
+    'EC 10m wind':'you are viewing EC 10m wind',
+    'change to GFS 100m wind': function () {
+        window.location = 'http://eknlau5897.github.io/Earth_windy/GFS_100m/index.html';
     }
 
 };
@@ -62,8 +62,8 @@ gui.add(meta, '2026-04-16+12Z', 0, 120, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
-gui.add(meta, 'GFS 100m wind');
-gui.add(meta, 'change to EC 10m wind');
+gui.add(meta, 'EC 10m wind');
+gui.add(meta, 'change to GFS 100m wind');
 updateWind(0);
 updateRetina();
 
@@ -97,10 +97,10 @@ getJSON('https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_coastl
 });
 
 function updateWind(name) {
-    getJSON('./wind/' + windFiles[name] + '.json', function (windData) {
+    getJSON( windFiles[name] + '.json', function (windData) {
         const windImage = new Image();
         windData.image = windImage;
-        windImage.src = 'wind/' + windFiles[name] + '.png';
+        windImage.src =   windFiles[name] + '.png';
         windImage.onload = function () {
             wind.setWind(windData);
         };
