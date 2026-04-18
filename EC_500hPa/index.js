@@ -53,8 +53,8 @@ const meta = {
     '2026-04-17+18Z': 0,
     'retina resolution': true,
     'EC 500 wind':'you are viewing EC 500hPa wind',
-    'change to GFS 100m wind': function () {
-        window.location = 'http://eknlau5897.github.io/Earth_windy/GFS_100m/index.html';
+    'change forecast': function () {
+        window.location = 'http://zax41006.github.io/GHMWS/animation.html';
     }
 
 };
@@ -63,7 +63,7 @@ if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
 gui.add(meta, 'EC 500 wind');
-gui.add(meta, 'change to GFS 100m wind');
+gui.add(meta, 'change forecast');
 updateWind(0);
 updateRetina();
 
