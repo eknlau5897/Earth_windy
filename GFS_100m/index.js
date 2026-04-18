@@ -53,8 +53,8 @@ const meta = {
     '2026-04-17+18Z': 0,
     'retina resolution': true,
     'GFS 100m wind':'you are viewing GFS 100m wind',
-    'change to EC 10m wind': function () {
-        window.location = 'http://eknlau5897.github.io/Earth_windy/ec_10m_wind/EC_10m.html';
+    'change forecast': function () {
+        window.location = 'http://zax41006-bot.github.io/GHMWS/animation.html';
     }
 
 };
@@ -63,7 +63,7 @@ if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
 gui.add(meta, 'GFS 100m wind');
-gui.add(meta, 'change to EC 10m wind');
+gui.add(meta, 'change forecast');
 updateWind(0);
 updateRetina();
 
