@@ -54,7 +54,7 @@ const meta = {
     'retina resolution': true,
     'EC 500 wind':'you are viewing EC 500hPa wind',
     'change forecast': function () {
-        window.location = 'http://zax41006.github.io/GHMWS/animation.html';
+        window.location = 'http://zax41006-bot.github.io/GHMWS/animation.html';
     }
 
 };
