@@ -26,27 +26,27 @@ gui.add(wind, 'dropRate', 0, 0.1);
 gui.add(wind, 'dropRateBump', 0, 0.2);
 
 const windFiles = {
-    0: '2026041806_000',
-    6: '2026041806_006',
-    12: '2026041806_012',
-    18: '2026041806_018',
-    24: '2026041806_024',
-    30: '2026041806_030',
-    36: '2026041806_036',
-    42: '2026041806_042',
-    48: '2026041806_048',
-    54: '2026041806_054',
-    60: '2026041806_060',
-    66: '2026041806_066',
-    72: '2026041806_072',
-    78: '2026041806_078',
-    84: '2026041806_084',
-    90: '2026041806_090',
-    96: '2026041806_096',
-    102: '2026041806_102',
-    108: '2026041806_108',
-    114: '2026041806_114',
-    120: '2026041806_120'
+    0: '2026041906_000',
+    6: '2026041906_006',
+    12: '2026041906_012',
+    18: '2026041906_018',
+    24: '2026041906_024',
+    30: '2026041906_030',
+    36: '2026041906_036',
+    42: '2026041906_042',
+    48: '2026041906_048',
+    54: '2026041906_054',
+    60: '2026041906_060',
+    66: '2026041906_066',
+    72: '2026041906_072',
+    78: '2026041906_078',
+    84: '2026041906_084',
+    90: '2026041906_090',
+    96: '2026041906_096',
+    102: '2026041906_102',
+    108: '2026041906_108',
+    114: '2026041906_114',
+    120: '2026041906_120'
 };
 
 const meta = {
@@ -66,6 +66,35 @@ gui.add(meta, 'GFS 100m wind');
 gui.add(meta, 'change forecast');
 updateWind(0);
 updateRetina();
+
+class PressureLayer {
+    constructor(gl) {
+        this.gl = gl;
+        this.textures = {}; // 存放 21 張紋理
+        this.program = createProgram(gl, vsSource, fsSource);
+    }
+
+    async loadFrames() {
+        const hours = Array.from({length: 21}, (_, i) => (i * 6).toString().padStart(3, '0'));
+        for (let hh of hours) {
+            this.textures[hh] = await loadTexture(this.gl, `pressure_frames/p_${hh}.png`);
+        }
+    }
+
+    draw(fhour) {
+        const gl = this.gl;
+        gl.useProgram(this.program);
+        
+        // 綁定當前小時的氣壓圖片
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, this.textures[fhour]);
+        
+        // 執行繪製矩形 (背景層)
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+    }
+}
+
+pressureLayer.draw(currentHour);
 
 function updateRetina() {
     const ratio = meta['retina resolution'] ? pxRatio : 1;
