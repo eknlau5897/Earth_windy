@@ -67,34 +67,75 @@ gui.add(meta, 'change forecast');
 updateWind(0);
 updateRetina();
 
+// 1. 先定義 PressureLayer 類別
 class PressureLayer {
     constructor(gl) {
         this.gl = gl;
-        this.textures = {}; // 存放 21 張紋理
-        this.program = createProgram(gl, vsSource, fsSource);
+        this.textures = {}; // 用於存放 21 張氣壓圖
+        this.program = createProgram(gl, contourVS, contourFS); // 使用剛才的 Shader
+        this.initBuffer();
     }
 
-    async loadFrames() {
+    initBuffer() {
+        const gl = this.gl;
+        this.buffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
+        // 建立一個覆蓋全屏的矩形
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, -1,1, 1,-1, 1,1]), gl.STATIC_DRAW);
+    }
+
+    // 預載入所有圖片 (currentHour: 000, 006...)
+    async loadAllTextures() {
         const hours = Array.from({length: 21}, (_, i) => (i * 6).toString().padStart(3, '0'));
         for (let hh of hours) {
-            this.textures[hh] = await loadTexture(this.gl, `pressure_frames/p_${hh}.png`);
+            const imgUrl = `pressure_frames/p_${hh}.png`;
+            this.textures[hh] = await loadTexture(this.gl, imgUrl);
         }
     }
 
-    draw(fhour) {
+    draw(currentHour) {
         const gl = this.gl;
         gl.useProgram(this.program);
-        
-        // 綁定當前小時的氣壓圖片
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
+
+        // 設定頂點座標
+        const posLoc = gl.getAttribLocation(this.program, "a_pos");
+        gl.enableVertexAttribArray(posLoc);
+        gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+        // 綁定對應小時的紋理
         gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, this.textures[fhour]);
-        
-        // 執行繪製矩形 (背景層)
+        gl.bindTexture(gl.TEXTURE_2D, this.textures[currentHour]);
+        gl.uniform1i(gl.getUniformLocation(this.program, "u_pressure_tex"), 0);
+        gl.uniform1f(gl.getUniformLocation(this.program, "u_opacity"), 0.7);
+
         gl.drawArrays(gl.TRIANGLES, 0, 6);
     }
 }
 
-pressureLayer.draw(currentHour);
+// 2. 【關鍵修正】實例化對象
+// 確保在 gl 上下文創建後執行
+const pressureLayer = new PressureLayer(gl);
+
+function frame() {
+    if (!wind.stopped) {
+        requestAnimationFrame(frame);
+    }
+
+    // --- 這裡插入氣壓層渲染 ---
+    // 假設你的風場當前小時變數是 fhour (如 "120")
+    if (pressureLayer) {
+        // 先畫氣壓，它會填滿背景
+        pressureLayer.draw(fhour, settings); 
+    }
+    if (wind.windData) {
+        wind.draw();
+    }
+    requestAnimationFrame(frame);
+    drawWind(); 
+}
+frame();
+
 
 function updateRetina() {
     const ratio = meta['retina resolution'] ? pxRatio : 1;
@@ -125,15 +166,16 @@ getJSON('https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_110m_coastl
     ctx.stroke();
 });
 
-function updateWind(name) {
-    getJSON('./wind/' + windFiles[name] + '.json', function (windData) {
-        const windImage = new Image();
-        windData.image = windImage;
-        windImage.src = 'wind/' + windFiles[name] + '.png';
-        windImage.onload = function () {
-            wind.setWind(windData);
-        };
-    });
+function updateWind(hour) {
+    // 1. 更新風場數據 (原本的邏輯)
+    fetch(`./wind/${date}${time}_${hour}.json`)
+        .then(res => res.json())
+        .then(data => {
+            wind.setWind(data);
+        });
+
+    // 2. 同步載入並連結氣壓紋理
+    pressureLayer.loadFrame(hour); 
 }
 
 function getJSON(url, callback) {
