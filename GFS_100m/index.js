@@ -134,7 +134,7 @@ function frame() {
 function updateWind(hour) {
     const fhour = hour.toString().padStart(3, '0');
     // 下載 JSON (假設目錄在 ./wind/)
-    getJSON(`wind/2026041906_${fhour}.json`, (data) => {
+    getJSON('wind/2026041906_${fhour}.json', (data) => {
         wind.setWind(data);
     });
 
