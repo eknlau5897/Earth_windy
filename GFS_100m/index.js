@@ -50,7 +50,7 @@ const windFiles = {
 };
 
 const meta = {
-    '2026-04-18+06Z': 0,
+    '2026-04-19+06Z': 0,
     'retina resolution': true,
     'GFS 100m wind':'you are viewing GFS 100m wind',
     'change forecast': function () {
@@ -58,7 +58,7 @@ const meta = {
     }
 
 };
-gui.add(meta, '2026-04-18+06Z', 0, 120, 6).onFinishChange(updateWind);
+gui.add(meta, '2026-04-19+06Z', 0, 120, 6).onFinishChange(updateWind);
 if (pxRatio !== 1) {
     gui.add(meta, 'retina resolution').onFinishChange(updateRetina);
 }
