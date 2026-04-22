@@ -1,0 +1,10 @@
+{
+  "source": "http://nomads.ncep.noaa.gov",
+  "date": "2026-04-22T00:00Z",
+  "width": 1440,
+  "height": 720,
+  "uMin": -26.2353,
+  "uMax": 27.1347,
+  "vMin": -31.6438,
+  "vMax": 28.0162
+}
